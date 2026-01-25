@@ -1,0 +1,220 @@
+/* Grundlayout */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  color: #222;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+/* Hero */
+.hero {
+  height: 50vh;
+  background: url("images/dummy01.jpg") center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-text {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-radius: 4px;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: #f4f4f4;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Content */
+.container {
+  max-width: 960px;
+  margin: auto;
+  padding: 1rem;
+}
+
+section {
+  margin-bottom: 4rem;
+}
+
+h1, h2 {
+  line-height: 1.3;
+}
+
+/* Galerie */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.gallery img {
+  width: 100%;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10000;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.lightbox.active img {
+  transform: scale(1);
+}
+
+.lightbox:target {
+  display: flex;
+}
+
+/* Kontakt */
+.email {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Footer */
+.footer {
+  background: #f4f4f4;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Buchungsübersicht */
+.booking {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.month h3 {
+  margin-bottom: 0.5rem;
+}
+
+.month table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.month th,
+.month td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+/* Statusfarben */
+.free {
+  background-color: #e6f4ea;   /* leicht grün */
+}
+
+.booked {
+  background-color: #fbeaea;   /* leicht rot */
+}
+
+.booking-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.booking-table caption {
+  caption-side: top;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 0.5rem;
+}
+
+.booking-table th, .booking-table td {
+  border: 1px solid #ccc;
+  width: 14.28%; /* 7 Spalten */
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.booking-table td.free {
+  background: #e6f7e6; /* grün */
+}
+
+.booking-table td.booked {
+  background: #f8d7da; /* rot */
+}
+
+.booking-table td.past {
+  background: #eeeeee; /* grau */
+  color: #666;
+}
+
+.booking-table td.current {
+  background: #fff3cd; /* gelb */
+  font-weight: bold;
+}
+
+/* Legende */
+.legend {
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.legend-item {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.3rem;
+  border: 1px solid #ccc;
+  vertical-align: middle;
+}
+
+.legend-item.free { background: #e6f7e6; }
+.legend-item.booked { background: #f8d7da; }
+.legend-item.past { background: #eeeeee; }
+.legend-item.current { background: #fff3cd; }
