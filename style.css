@@ -45,12 +45,56 @@ img {
   font-weight: 500;
 }
 
-/* Content */
-.container {
-  max-width: 960px;
-  margin: auto;
-  padding: 1rem;
+.content {
+  max-width: 720px;     /* optimale Zeilenlänge */
+  margin: 0 auto;
+  padding: 1rem 1.2rem; /* Rand auf Mobil */
 }
+
+.content p {
+  margin-bottom: 1.6em;  /*1,6*/
+  font-size: 1.05rem;
+}
+
+/* Content */
+/* Container = Lesefläche */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.2rem 1.4rem;
+}
+
+/* Standard-Text */
+.container p {
+  margin-bottom: 1.0em;  /*1.6em*/
+  font-size: 1.05rem;
+}
+
+/* Überschriften */
+.container h2 {
+  margin-bottom: 1.2rem;
+  line-height: 1.3;
+}
+
+/* Abstand zwischen Sections (für Navigation sinnvoll) */
+.container section {
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.2rem 1rem;
+  }
+
+  .container p {
+    font-size: 1.1rem;
+  }
+
+  .container section {
+    margin-bottom: 2.2rem;
+  }
+}
+
 
 section {
   margin-bottom: 4rem;
@@ -59,6 +103,78 @@ section {
 h1, h2 {
   line-height: 1.3;
 }
+
+.ausstattung {
+  list-style: none;      /* Standard-Punkte aus */
+  padding-left: 0;
+  margin: 0;
+}
+
+.ausstattung li {
+  padding-left: 1.2em;
+  position: relative;
+  margin-bottom: 0.6em;
+}
+
+.ausstattung li::before {
+  content: "–";          /* ruhiger Gedankenstrich */
+  position: absolute;
+  left: 0;
+  color: #666;
+}
+
+
+.ausstattung > li {
+  margin-bottom: 1em;
+  font-weight: 500;
+}
+/*
+.ausstattung ul {
+  list-style: none;
+  padding-left: 1.2em;
+  margin-top: 0.4em;
+}
+
+.ausstattung ul li {
+  font-weight: 400;
+  margin-bottom: 0.4em;
+  position: relative;
+}
+
+.ausstattung ul li::before {
+  content: "–";
+  position: absolute;
+  left: -1.2em;
+  color: #777;
+}
+*/
+
+.ausstattung ul {
+  list-style: none;
+  padding-left: 1em;
+  margin-top: 0.4em;
+}
+
+.ausstattung ul li {
+  font-weight: 400;
+  position: relative;
+  margin-bottom: 0.4em;
+}
+
+.ausstattung ul li::before {
+  content: "–";
+  position: absolute;
+  left: -0.7em;
+  color: #777;
+}
+
+
+@media (max-width: 600px) {
+  .ausstattung li {
+    font-size: 1.05rem;
+  }
+}
+
 
 /* Galerie */
 .gallery {
