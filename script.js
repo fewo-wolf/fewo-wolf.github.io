@@ -94,6 +94,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  // ISO-Kalenderwoche berechnen
+  function getCalendarWeek(date) {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+
+    // Auf Donnerstag der aktuellen Woche setzen
+    d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+
+    // Kalenderwoche anhand des ersten Donnerstags des Jahres
+    const firstThursday = new Date(d.getFullYear(), 0, 4);
+    firstThursday.setDate(
+      firstThursday.getDate() + 3 - (firstThursday.getDay() + 6) % 7
+    );
+
+    return 1 + Math.round((d - firstThursday) / (7 * 24 * 60 * 60 * 1000));
+  }
+
   function renderMonthCalendars(data) {
     const container = document.getElementById("booking");
 
@@ -117,41 +134,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Header: Mo, Di, ... So
       const headerRow = document.createElement("tr");
-      ["Mo","Di","Mi","Do","Fr","Sa","So"].forEach(day => {
+      ["KW","Mo","Di","Mi","Do","Fr","Sa","So"].forEach(day => {
         const th = document.createElement("th");
         th.textContent = day;
         headerRow.appendChild(th);
       });
       table.appendChild(headerRow);
 
-      let row = document.createElement("tr");
-      // Leere Zellen vor dem ersten Tag
-      let weekday = firstDay.getDay(); // 0=So, 1=Mo ...
-      let emptyCells = weekday === 0 ? 6 : weekday-1;
-      for (let i=0;i<emptyCells;i++) row.appendChild(document.createElement("td"));
+let row = document.createElement("tr");
 
-      for (let d=1; d<=daysInMonth; d++) {
-        const date = new Date(y,m,d);
-        const cell = document.createElement("td");
+// Leere Zellen vor dem ersten Tag
+let weekday = firstDay.getDay(); // 0=So, 1=Mo ...
+let emptyCells = weekday === 0 ? 6 : weekday-1;
 
-        const cls = getDayStatus(date, data[monthKey]);
-        cell.classList.add(cls);
-        cell.textContent = d;
+for (let i = 0; i < emptyCells; i++) {
+  row.appendChild(document.createElement("td"));
+}
 
-        row.appendChild(cell);
+// Kalenderwochen-Spalte ergänzen
+function addWeekNumber(row, date) {
+  const cell = document.createElement("td");
+  cell.className = "calendar-week";
+  cell.textContent = getCalendarWeek(date);
+  row.insertBefore(cell, row.firstChild);
+}
 
-        // Wenn Sonntag → neue Zeile
-        if (date.getDay() === 0) {
-          table.appendChild(row);
-          row = document.createElement("tr");
-        }
-      }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(y, m, d);
+    const cell = document.createElement("td");
 
-      // Restliche leere Zellen am Ende
-      while (row.children.length < 7) {
-        row.appendChild(document.createElement("td"));
-      }
+    const cls = getDayStatus(date, data[monthKey]);
+    cell.classList.add(cls);
+    cell.textContent = d;
+
+    row.appendChild(cell);
+
+    // Wenn Sonntag → Kalenderwoche abschließen
+    if (date.getDay() === 0) {
+      addWeekNumber(row, date);
       table.appendChild(row);
+      row = document.createElement("tr");
+    }
+  }
+
+  // Restliche leere Zellen am Monatsende
+  if (row.children.length > 0) {
+    while (row.children.length < 7) {
+      row.appendChild(document.createElement("td"));
+    }
+
+    // Datum des letzten Tages dieser Woche bestimmen
+    const lastDate = new Date(y, m, daysInMonth);
+    const weekEnd = new Date(lastDate);
+    weekEnd.setDate(weekEnd.getDate() + (7 - ((weekEnd.getDay() + 6) % 7 + 1)) % 7);
+
+    addWeekNumber(row, lastDate);
+    table.appendChild(row);
+  }
 
       container.appendChild(table);
     });
