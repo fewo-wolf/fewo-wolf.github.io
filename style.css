@@ -404,6 +404,10 @@ h1, h2 {
   background: #f8d7da; /* rot */
 }
 
+.booking-table td.reserved {
+  background: #ffe8cc;
+}
+
 .booking-table td.past {
   background: #eeeeee; /* grau */
   color: #666;
@@ -431,5 +435,6 @@ h1, h2 {
 
 .legend-item.free { background: #e6f7e6; }
 .legend-item.booked { background: #f8d7da; }
+.legend-item.reserved { background: #ffe8cc; }
 .legend-item.past { background: #eeeeee; }
 .legend-item.current { background: #fff3cd; }

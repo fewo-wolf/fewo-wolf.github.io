@@ -83,10 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const period of bookings) {
       const start = new Date(period.from); start.setHours(0,0,0,0);
       const end   = new Date(period.to);   end.setHours(0,0,0,0);
-
+      
       if (d >= start && d <= end) {
-        if (period.status === "booked") return "booked";
-        if (period.status === "free") return "free";
+        return period.status;
       }
     }
 
